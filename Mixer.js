@@ -13,3 +13,23 @@ const Mixer = require('@mixer/client-node');
             expires: Date.now() + (365 * 24 * 60 * 60 * 1000)
         },
     }));
+
+    // Gets the user that the Access Token we provided above belongs to.
+    client.request('GET', 'users/current')
+    .then(response => {
+        console.log(response.body);
+
+        // Store the logged in user's details for later reference
+        userInfo = response.body;
+
+        // Returns a promise that resolves with our chat connection details.
+        return new Mixer.ChatService(client).join(response.body.channel.id);
+    })
+    .then(response => {
+        const body = response.body;
+        console.log(body);
+        // TODO: Connect to chat, we'll do this in the next tutorial step :)!
+    })
+    .catch(error => {
+        console.error('Oops! Something went wrong.');
+        console.error(error);
