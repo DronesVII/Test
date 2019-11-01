@@ -13,7 +13,8 @@ const Mixer = require('@mixer/client-node');
             expires: Date.now() + (365 * 24 * 60 * 60 * 1000)
         },
     }));
-
+    
+    // TODO: Make in async/await
     // Gets the user that the Access Token we provided above belongs to.
     client.request('GET', 'users/current')
     .then(response => {
